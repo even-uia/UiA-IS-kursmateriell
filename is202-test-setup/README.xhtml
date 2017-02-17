@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <style type="text/css">
+            body {
+                width:60ex;
+                margin:1em;
+            }
+            h1, h2, h3 {
+                font-weight:bold;
+                padding-bottom:0em;
+                padding-top:1em;
+                margin:0;
+            }
+            h1 {
+                font-size:150%;
+                text-decoration:underline;
+            }
+            h2 {
+                font-size:120%;
+            }
+            p {
+                padding:0em;
+                margin:0em;
+                padding-top:1ex;
+            }
+                
+        </style>
+        <title>IS202 Project ReadMe</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h1>Get the IS202 Project up and running</h1>
+        <p>Below you will find a description of how you create a netbeans
+        web application project for the examples in IS202, and what you
+        have to do to build and run the application.</p>
+        <p>We can not distribute the examples as netbeans project, because your
+        computers will be set up in the same way as mine, so it wouldn't work.
+        Therefore, you will have to go through the steps below, but you only
+        have to do it once (for each project).</p>
+        
+        <h2>Prerequisites</h2>
+        <p>The following software must be installed and working properly
+            before you starting working on the project:</p>
+        <ul>
+            <li>JDK</li>
+            <li>TomEE. Remember where you install TomEE. TOMEE_HOME will be
+        used throughout this document to refer to the TomEE installation
+        directory.</li>
+            <li>Netbeans</li>
+            <li>You must have access to a database. Preferably, the database
+            system should be installed on your own computer, but you can share
+            a database server if you are careful. See the warning in
+            persistence.xml.</li>
+        </ul>
+        
+        <h2>Importing the project</h2>
+        <p>When you have checked that the software listed above is working,
+            you can open the project in Netbeans.</p>
+        <ol>
+            <li>Start Netbeans, and select <code>New project</code> in the
+            <code>File</code> menu.</li>
+            <li>In the new project dialog, select the Java Web category, 
+                and Web Free-Form Web application project. Click next.</li>
+            <li>In the next pane enter project location. That is the folder were
+                you found this file. The remaining fields should be filled
+            automatically. The build script is build.xml in the same directory
+            as this file. Project name is taken from build.xml. Project folder
+            is the same as the location. Click Next.</li>
+            <li>The build and run actions allow you to build and deploy the
+            project from Netbeans. Enter the following, if it isn't selected
+            automatically: Build Project: build, Clean Project: clean, and Deploy
+            Project: deploy. Click Next</li>
+            <li>In the web sources dialog enter: Web pages folder: src/html, 
+            WEB-INF content: src/conf. Context path is used in the url of the
+            application. You should enter the project name in that field. Select
+            java EE 5 or later.Click next.</li>
+            <li>In the source package folders dialog, click <code>Add Folder</code>
+            to add src/java, if it hasn't been selected automatically. Click next.</li>
+            <li>In the java sources classpath you will add the libraries that
+            the application needs. Click <code>Add Jar/Folder...</code>, and
+            navigate to TOMEE_HOME/lib, and select javaee-api-7.0-1.jar, and 
+            servlet-api.jar and add them using absolute path. You may click next,
+            there is no important settings in the next dialogs, so just click Finish
+            to open the project in netbeans. It some settings turn out to be wrong
+            you can change them in the project properties dialog later.</li>
+            <li>If you open the project properties now (right-click on the project name
+            and select properties), go to the Build and run pane. Select deploy in
+            run project field. This will allow you to deploy the project by 
+            clicking on the green arrow/triangle in netbeans.</li>
+        </ol>
+        
+        <h2>Building and running the application</h2>
+        <p>The application uses a database, so you have to configure a database
+        connection, also known as a DataSource for the application. This is done
+        by setting up a connection  pool in TomEE, and to set up the application
+        to use this connection pool.</p>
+        <p>The build script needs to know where to find TomEE, for two reasons:
+        Jar files from TomEE's lib directory are needed to compile the source,
+        and the compiled application will be deployed to TomEE's webapp directory</p>
+
+        <ol start="9">
+            <li>To set up a datasource, follow thevinstructions in in 
+            src/conf/tomee.xml. If TomEE is running, you may have to restart
+            it before it will create the connection pool.</li>
+            <li>The next step is to configure JPA to use this datasource. Open
+            persistence.xml, and follow the instructions in the comments there.</li>
+            <li>Finally, you have to tell the build system (ant), where TomEE
+            is installed. Open the file ant/platform.properties. (You will have to 
+            switch to the Files view to open it. It is not visible in the projects
+            view). Follow the instructions inside the file.</li>
+            <li>At last, you can test the project. To compile the soucre code, you
+            can right-click on the project name, in the project pane to the left,
+            and select Build in the context menu. Or, you can click on the broom
+            and hammer icon in the toolbar</li>
+            <li>If you havent start TomEE yet, start it now: Go to TOMEE_HOME/bin
+            and run the startup script. Back in netbeans, right-click the project
+            name and select deploy or redeploy in the context menu. Alternatively
+            click on the green triangle in the toolbar (The "run" or "play" button).
+            If the process completes without errors, open 
+            http://localhost:8080/context in a browser (replace context with the
+            project name). You should see the start page for the application.</li>
+        </ol>
+        
+        <h2>Appendix: List of important files</h2>
+        <p> The following files are critical for whether the application will work
+        or not. If you can't find all of these, try switching to the Files view,
+        rather than the default projects view, in the top pane to the left.</p>
+        <dl>
+            <dt>build.xml</dt>
+            <dd>The build script. It contains instructions for how the application
+            will be compiled, packaged in a war file, and deployed to TomEE</dd>
+            <dt>src/conf/persistence.xml</dt> 
+            <dd>This is the configuration file for JPA.</dd>
+            <dt>src/conf/web.xml</dt>
+            <dd>Web application configuration file. This file is optional, and
+            it is not used in this project.</dd>
+            <dt>ant/platform.properties and ant/project.properties</dt>
+            <dd>Configuration files for the build process. Used in build.xml</dd>
+            <dt>TOMEE_HOME/conf/tomee.xml</dt>
+            <dd>Configuration file for TomEE. You will configure a datsource here</dd>
+        </dl>
+    </body>
+</html>

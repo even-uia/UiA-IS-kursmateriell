@@ -1,0 +1,6 @@
+#
+# Java build outputs
+*.class
+*.jar
+*.war
+nbproject
