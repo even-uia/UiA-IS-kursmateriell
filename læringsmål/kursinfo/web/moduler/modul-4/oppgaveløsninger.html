@@ -1,0 +1,283 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="../../css/modul.css"/>
+        <title>Oppgaveløsninger</title>
+    </head>
+    <body>
+        <h1>Oppgaveløsninger Modul 8</h1>
+        
+        <hr/>
+        <h2>Exercise 4.2</h2>
+        <p>private ArrayList&lt;Book> library;</p>
+            
+            <hr/>
+            <h2>Exercise 4.3</h2>
+            <p>10</p>
+            
+            <hr/>
+            <h2>Exercise 4.4</h2>
+            <p>items.get(4);</p>
+            
+            <hr/>
+            <h2>Exercise 4.5</h2>
+            <p>14</p>
+            
+            <hr/>
+            <h2>Exercise 4.6</h2>
+            <p>notes.add(meeting);</p>
+            
+            <hr/>
+            <h2>Exercise 4.7</h2>
+            <p>dates.remove(2);</p>
+            
+            <hr/>
+            <h2>Exercise 4.8</h2>
+            <p>5</p>
+            
+            <hr/>
+        <h2>Exercise 4.9</h2>
+        <pre>
+public void removeNote(int noteNumber)
+{
+    if(noteNumber &lt; 0) {
+        // This is not a valid note number, so do nothing.
+    }
+    else if(noteNumber &lt; numberOfNotes()) {
+        // This is a valid note number, so we can remove it.
+        notes.remove(noteNumber);
+    } 
+    else {
+        // This is not a valid note number, so do nothing.
+    }
+}
+        </pre>
+            <hr/>
+            <h2>Exercise 4.10</h2>
+            <p>public void listAllNotes()</p>
+            
+            <hr/>
+            <h2>Exercise 4.11</h2>
+            <p>No. We have no idea how many lines we would need.</p>
+            
+            <hr/>
+            <h2>Exercise 4.16</h2>
+        <pre>
+public void showNote(int noteNumber) {
+    if(noteNumber &lt; 0) {
+        System.out.println("This is not a valid note number");
+    } 
+    else if(noteNumber &lt;= numberOfNotes()) {
+        // This is a valid note number, so we can print it.
+        System.out.println(notes.get(noteNumber));
+    } 
+    else { 
+        System.out.println("This is not a valid note number");
+    }
+}
+        </pre>
+        
+            <hr/>
+            <h2>Exercise 4.17</h2>
+        <pre>
+public void multiplesOfFive()
+{
+    int multiple = 10;
+    while(multiple &lt;= 95) {
+        System.out.println(multiple);
+        multiple = multiple + 5;
+    }
+}
+                </pre>
+                
+                <hr/>
+                <h2>Exercise 4.18</h2>
+        <pre>
+/**
+* Sum the numbers from a to b, inclusive.
+*/
+public int sum(int a, int b)
+{
+    int sum = 0;
+    int number = a;
+    while(number &lt;= b) {
+        sum = sum + number;
+        number = number + 1;
+    }
+    return sum; 
+}
+        </pre>       
+
+        <hr/>
+        <h2>Exercise 4.19</h2>
+        <pre>
+/**
+* A crude determination of whether n is prime or not.
+* More efficient methods are possible.
+*/
+public boolean isPrime(int n)
+{
+    int divisor = 2; 
+    while(divisor &lt; n ) {
+        if(n % divisor == 0) { 
+            return false;
+        }
+        divisor = divisor + 1;
+    }
+    return true;
+}
+        </pre>
+
+        <hr/>
+        <h2>Exercise 4.20</h2>
+        <pre>
+public void search(String searchString)
+{
+    int index = 0; 
+    boolean found = false; 
+    while(index &lt; notes.size() &amp;&amp; !found) { 
+        String note = notes.get(index); 
+        if(note.contains(searchString)) { 
+            found = true; 
+        } 
+        else { 
+            index++; 
+        } 
+    }
+    if(found) {
+        System.out.println("Found search term in note: " + notes.get(index));
+    }
+    else {
+        System.out.println("Search term not found."); 
+    } 
+}
+        </pre>
+        
+                    <hr/>
+                    <h2>Exercise 4.21</h2>
+        <pre>
+public void listNotes() {
+    int index = 0;
+    for(String note : notes) {
+        System.out.println(index + ": " + note);
+        index++; 
+    } 
+}
+        </pre>
+        
+        <hr/>
+        <h2>Exercise 4.22</h2>
+        <p>The value does not vary.</p>
+        <pre>
+public void search(String searchString)
+{
+    int index = 0;
+    boolean found = false;
+    int size = notes.size();
+    while(index &lt; size &amp;&amp; !found) { 
+        String note = notes.get(index); 
+        if(note.contains(searchString)) { 
+            found = true;
+        } 
+        else {
+            index++;
+        } 
+    } 
+    if(found) { 
+        System.out.println("Found search term in note: " + notes.get(index));
+    }
+    else {
+        System.out.println("Search term not found."); 
+    }
+}
+        </pre>
+        
+        <hr/>
+        <h2>Exercise 4.23</h2>
+        <pre>
+/**
+ * Show a note.
+ * @param noteNumber The number of the note to be shown.
+ */
+public void showNote(int noteNumber) { 
+    if(noteNumber &lt; 1) {
+        // This is not a valid note number, so do nothing.
+    }
+    else if(noteNumber &lt;= numberOfNotes()) { 
+        // This is a valid note number, so we can print it. 
+        System.out.println(notes.get(noteNumber - 1));
+    }
+    else { 
+        // This is not a valid note number, so do nothing. 
+    }
+}
+
+/**
+ * List all notes in the notebook.
+ */
+public void listNotes() {
+    int noteNumber = 1;
+    for(String note : notes) { 
+        System.out.println(noteNumber + ": " + note);
+        noteNumber++;
+    }
+}
+
+/**
+ * Remove a note from the notebook if it exists.
+ * @param noteNumber The number of the note to be removed.
+ */
+public void removeNote(int noteNumber) { 
+    if(noteNumber &lt; 1) {
+        // This is not a valid note number, so do nothing.
+    }
+    else if(noteNumber &lt;= numberOfNotes()) { 
+        // This is a valid note number.
+        notes.remove(noteNumber - 1); 
+    }
+    else {
+        // This is not a valid note number, so do nothing. 
+    }
+}
+        </pre>
+        
+        <hr/>
+        <h2>Exercise 4.25-4.27</h2>
+        <pre>
+import java.util.ArrayList;
+
+/**
+ * Store details of club memberships. 
+ *
+ * @author (your name)
+ * @version (a version number or a date) 
+ */
+public class Club {
+    private ArrayList&lt;Membership> members;
+    
+    /**
+     * Constructor for objects of class Club
+     */
+    public Club() { 
+        members = new ArrayList&lt;Membership>();
+    } 
+    
+    /**
+     * Add a new member to the club's list of members.
+     * @param member The member object to be added.
+     */
+    public void join(Membership member) {
+        members.add(member);
+    }
+    
+    /**
+     * @return The number of members (Membership objects) in
+     * the club.
+     */
+    public int numberOfMembers() { return members.size(); }
+}
+        </pre>               
+        
+    </body>
+</html>

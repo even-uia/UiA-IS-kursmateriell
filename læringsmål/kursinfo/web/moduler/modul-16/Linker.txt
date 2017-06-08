@@ -1,0 +1,14 @@
+http://www.codejava.net/java-ee/servlet/handling-html-form-data-with-java-servlet 
+http://users.polytech.unice.fr/~buffa/cours/internet/POLYS/servlets/Servlet-Tutorial-Form-Data.html 
+http://www.javatpoint.com/example-of-registration-form-in-servlet
+http://www.studytonight.com/servlet/registration-form-example-in-servlet.php 
+http://javapapers.com/servlet/servlet-read-form-data/
+http://www.oracle.com/technetwork/java/servlet-142430.html
+
+
+YouTube
+https://www.youtube.com/watch?v=tkFRGdUgCsE
+https://www.youtube.com/watch?v=Q6b3ZYKngXA 
+https://www.youtube.com/watch?v=Q6b3ZYKngXA
+https://www.youtube.com/watch?v=nzlUCsEMq0o  Sjekk denne
+https://www.youtube.com/watch?v=O0CM4noJEsY og denne 

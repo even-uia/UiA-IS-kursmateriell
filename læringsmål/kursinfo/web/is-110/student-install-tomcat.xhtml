@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <style type="text/css">
+            html{
+                font-size:12pt;
+            }
+            
+            *{
+                font-family:Arial, Helvetica, sans-serif;
+                margin:0;
+            }
+            body{
+                border:thin solid black;
+                margin:auto;
+                padding:25px;
+                padding-top:0;
+                font-size:12pt;
+                width:80ex;
+            }
+            
+            h1,
+            h2,
+            h3{
+                padding-top:1em;
+                padding-bottom:0;
+                text-decoration:underline;
+                font-weight:bold;
+            }
+            h1{
+                font-size:150%;
+            }
+            h2{
+                font-size:115%;
+            }
+            h3{
+                font-size:100%;
+            }
+            
+            dl dt{
+                font-family:fixed, courier;
+                font-weight:bold;
+                padding-top:1em;
+            }
+            
+            dt + dt{
+                padding-top:0em;
+            }
+            
+            table.plain{
+                border-width:thin;
+                border-style:solid;
+                border-collapse:collapse;
+                border-color:black;
+            }
+            table.plain td,
+            table.plain th{
+                border-width:thin;
+                border-style:solid;
+                vertical-align:top;
+                padding:3px;
+                padding-left:10px;
+                padding-right:10px;
+                font-size:90%;
+            }
+            table.plain td.center{
+                text-align:center;
+            }</style>
+
+        <title>Installasjon av Tomcat/TomEE</title>
+    </head>
+    <body>
+        <h1>Installasjon av Netbeans og Tomcat</h1>
+        <h2>Forberedelser</h2>
+        <ol>
+            <li><a href="#JdkInstall">Installer JDK</a> Det har du sannsynligvis gjort forlengst,
+                men kanskje det er på tide å bytte til en nyere versjon</li>
+            <li>Last ned Netbeans EE bundle fra <a href="https://netbeans.org/downloads/">
+                    https://netbeans.org/downloads/</a>. Lagre filen på disken din så du kan
+                installere på nytt om nødvendig.</li>
+        </ol>
+        <h2>Installasjon av Netbeans og TomCat</h2>
+        <ol start="3">
+            <li>Start installasjonsprogrammet du lastet ned. Installasjonen er stort sett
+            selvforklarende, men det er noen få ting å passe på:</li>
+            <li>Du får spørsmål om hvilke applikasjonsservere du vil installere. Velg Tomcat.
+                    <strong>Ikke installer Glassfish</strong>.(Det omvendte var forhåndsvalgt når
+                jeg testet installasjonen)</li>
+            <li>Etterhvert må du velge hvor du vil installere Netbeans. Programfiler er greit hvis
+                du er administrator. Det er kanskje bedre å lage en mappe, f.eks. C:\uia, og
+                installere all programvaren du trenger der. Det spiller ikke så stor rolle for
+                Netbeans, men Tomcat liker ikke å bli installert i mapper med blanke i navnet
+                (C:\Programfiler heter egentlig C:\Program Files).<br/>
+                På en linux maskin bør du installere både Netbeans og Tomcat i /opt (hvis
+                du får noe valg...)
+            </li>
+            <li>Du kan også bli spurt om å velge JDK (hvis du har flere versjoner installert). Velg
+                den nyeste.</li>
+            <li>Når du blir spurt om hvor du vil installere Tomcat, svarer du C:\ uia hvis du lagde
+                en egen mappe for kursprogramvare. Du bør uansett installere Tomcat i en mappe med
+                kort bane, og unngå c:\Programfiler</li>
+            <li>Når du klikker next starter installasjonen.</li>
+        </ol>
+        
+        <h2>Konfigurasjon og testing</h2>
+        <ol start="9">
+            <li>Start Netbeans. Velg Servers i Tools menyen. I serverlista til venstre skal
+                det stå Apache Tomcat 8.0.27.0 hvis alt har gått bra.</li>
+            <li>Hvis serveren ikke er der, klikk Add Server. Velg Apache Tomcat or TomEE.
+                Klikk next. Velg mappa hvor du installerte Tomcat (f.eks. 
+                C:\uia\Apache Tomcat 8.0.27.0), og velg et brukernavn og passord for
+                administrasjon av Tomcat (f.eks. admin/admin)</li>
+            <li>Når serveren er på plass, velger du New Project i File menyen.</li>
+            <li>Velg kategorien Java Web, og Web Applicaion prosjekt. Klikk Next.
+            Velg prosjektnavn, og hvor prosjektet skal lagres. Klikk Next. Velg server
+            (Eneste alternativ skal være Tomcat hvis du ikke har installert noe tidligere)
+            og klikk Finish. Prosjektet skal dukke opp i panelet til venstre.</li>
+            <li>Klikk på prosjektet, og deretter på den grønne trekanten (Run project).
+            Etter en liten stund skal det komme opp et browservindu, med applikasjone
+            din (kun en side  hvor det står Hello World.</li>
+            <li>Ferdig</li>
+        </ol>
+    </body>
+</html>

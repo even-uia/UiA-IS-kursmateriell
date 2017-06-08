@@ -1,0 +1,8 @@
+#
+# Java build outputs
+*.class
+*.jar
+*.war
+nbproject
+/kursinfo/dist/
+/kursinfo/build/

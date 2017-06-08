@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <style type="text/css">
+            html{
+                font-size:12pt;
+            }
+            
+            *{
+                font-family:Arial, Helvetica, sans-serif;
+                margin:0;
+            }
+            body{
+                border:thin solid black;
+                margin:auto;
+                padding:25px;
+                padding-top:0;
+                font-size:12pt;
+                width:80ex;
+            }
+            
+            h1,
+            h2,
+            h3{
+                padding-top:1em;
+                padding-bottom:0;
+                text-decoration:underline;
+                font-weight:bold;
+            }
+            h1{
+                font-size:150%;
+            }
+            h2{
+                font-size:115%;
+            }
+            h3{
+                font-size:100%;
+            }
+            
+            dl dt{
+                font-family:fixed, courier;
+                font-weight:bold;
+                padding-top:1em;
+            }
+            
+            dt + dt{
+                padding-top:0em;
+            }
+            
+            table.plain{
+                border-width:thin;
+                border-style:solid;
+                border-collapse:collapse;
+                border-color:black;
+            }
+            table.plain td,
+            table.plain th{
+                border-width:thin;
+                border-style:solid;
+                vertical-align:top;
+                padding:3px;
+                padding-left:10px;
+                padding-right:10px;
+                font-size:90%;
+            }
+            table.plain td.center{
+                text-align:center;
+            }</style>
+
+        <title>Installasjon av Tomcat/TomEE</title>
+    </head>
+    <body>
+        <h1>Installasjon av Tomcat/TomEE "produksjons"-server på linux</h1>
+        <h2>Forberedelser</h2>
+        <ul>
+            <li><a href="#JdkInstall">Installer JDK</a></li>
+            <li>Last ned TomEE Plume fra 
+                <a href="http://tomee.apache.org/downloads.html">http://tomee.apache.org/downloads.html</a>
+                (bare Plume har alt du trenger i IS202). </li>
+        </ul>
+        <h2>Installasjon av TomCat/TomEE</h2>
+        <p>TomEE er en ren utvidelse av TomCat så installasjon av TomEE og TomCat gjøres på nøyaktig
+            samme måte. Bytt ut tomcat-0.0.7 med navnet på den faktiske mappa på din maskin.</p>
+        <dl>
+            <dt>gunzip tomcat-0.0.7.tar.gz</dt>
+            <dt>tar xf tomcat-0.0.7.tar</dt>
+            <dd>Pakk ut tar.gz fila. Først dekomprimere, så pakke ut arkivet. 
+                Arkivet pakkes ut til mappa ./tomcat-0.0.7</dd>
+
+            <dt>mv tomcat-0.0.7 /opt</dt>
+            <dd>Kopier innholdet til /opt</dd>
+        </dl>
+        
+        
+        <h2>Konfigurasjon av linux bruker for Tomcat</h2>
+        <dl>
+            <dt>chown -R tomcat:tomcat /opt/tomcat-0.0.7 </dt>
+            <dd>Bytt eier på installasjonen til brukeren tomcat. Tomcat skal ha begrensede
+                rettigheter, og kan bare brukes til å kjøre TomCat.</dd>
+
+            <dt>find /opt/tomcat-0.0.7 -type d -print0 | xargs -0 chmod 755</dt>
+            <dd>Gi alle lese og søkeadgang i mapper</dd>
+            <dt>find /opt/tomcat-0.0.7 -type f -print0 | xargs -0 chmod 644</dt>
+            <dd>Gi bare lesetilgang til filer</dd>
+            <dt>chmod a+rwxt /opt/tomcat-0.0.7/webapps</dt>
+            <dd>Gi alle skriveadgang til webapps (som brukes til å deploye applikasjoner), men med
+                begrenset adgang til andres filer. Hvis dette gikk bra skal filene i tomcat-0.0.7 ha
+                følgende tilgang (bruk ls -l til å sjekke), eieren av alle filene skal være tomcat:
+                    <table class="plain">
+                    <tr>
+                        <th>File</th>
+                        <th>Permissions</th>
+                    </tr>
+                    <tr>
+                        <td>Directory</td>
+                        <td>drwxr-xr-x</td>
+                    </tr>
+                    <tr>
+                        <td>Ordinary file</td>
+                        <td>-rw-r--r--</td>
+                    </tr>
+                    <tr>
+                        <td>Executable file (program)</td>
+                        <td>-rwxr--r--</td>
+                    </tr>
+                    <tr>
+                        <td>/opt/tomcat-0.0.7/webapps</td>
+                        <td>drwxrwxrwt</td>
+                    </tr>
+                </table>
+            </dd>
+            
+            <dt>iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080</dt>
+            <dt>iptables -t nat -A PREROUTING -p udp -m udp --dport 80 -j REDIRECT --to-ports 8080</dt>
+            <dt>iptables -t nat -A PREROUTING -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8443</dt>
+            <dt>iptables -t nat -A PREROUTING -p udp -m udp --dport 443 -j REDIRECT --to-ports 8443</dt>
+            <dd>Redirection av port 80 443 til 8080 og 8443</dd>
+        </dl>
+        <h2>Konfigurasjon av SSL</h2>
+        <p>Tomcat er konfigurert til å lytte på port 8080 og 8443. Redirect 80 til 8080 går bra,
+        men det trengs et sertifikat for https på 8443:</p>
+        <ul>
+            <li>Sett inn følgende i conf/server.xml:<pre>
+                    &lt;Connector
+                        protocol="org.apache.coyote.http11.Http11NioProtocol"
+                        port="8443" maxThreads="200"
+                        scheme="https" secure="true" SSLEnabled="true"
+                        keystoreFile="/opt/tomcat-0.0.7/conf/keystore"
+                        keystorePass="tomcat" clientAuth="false"
+                        sslProtocol="TLS"/&gt;
+                </pre></li>
+            <li><dl>
+                    <dt>keytool -genkey -alias tomcat -keyalg RSA -keystore
+                        /opt/apache-0.0.7/conf/keystore</dt>
+                    <dd>Oppretter keystore som refereres fra server.xml, og lager kryptonøkler for
+                        tomcat</dd>
+                </dl></li>
+        </ul>
+        
+        <h2 id="JdkInstall">Installere JDK</h2>
+        <p>Last ned JDK for Linux fra <a href="http://java.oracle.com">
+            http://java.oracle.com</a>. Velg siste versjon for 64 bit linux.
+        </p>
+        <dl>
+            <dt>tar zxvf jdk-8uversion-linux-x64.tar.gz</dt>
+            <dd>Pakk ut arkivet</dd>
+            <dt>vi /etc/profile.d/jdk.sh</dt>
+            <dd>Oppdater versjonsnummeret i JAVA_HOME, så det matcher versjonen
+            som ble installert</dd>
+            <dt>javac -version</dt>
+            <dd>Sjekk at det er riktig versjon som blir kjørt</dd>
+        </dl>
+
+
+        <h2>Referanser</h2>
+        <ul>
+            <li id="fhs"><a href="http://www.pathname.com/fhs/pub/fhs-2.3.html">Filesystem Hierarchy
+                    Standard</a></li>
+            <li id="tomcatinst"><a
+                    href="http://www.davidghedini.com/pg/entry/install_tomcat_7_on_centos">Install
+                    Tomcat 7 on CentOS, RHEL, or Fedora</a></li>
+            <li id="tomeeinst"><a
+                    href="http://www.davidghedini.com/pg/entry/apache_tomee_on_centos_6">Apache
+                    TomEE on CentOS 6</a></li>
+        </ul>
+    </body>
+</html>

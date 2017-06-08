@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Modul 14: Eget prosjekt</title>
+    <link href="../modul.css" rel="stylesheet" />
+  </head>
+  <body>
+    <p><a
+      href="../../is-110/index.xhtml">IS-110 Fagstoff</a> &gt; <a
+        href="../../is-110/moduler.xhtml">Moduler</a> &gt; Modul 14</p>
+    
+    <h1>Modul 14: Eget prosjekt</h1>
+    <p> INTRO </p>
+
+    <h2>Læringsmål:</h2>
+    <p>Du har fullført modulen når du kan:</p>
+    <ul>
+      <li>gjennomføre et "stort" prosjekt (i IS-110 målestokk) på egenhånd.</li>
+    </ul>
+
+    <h2>Ressurser</h2>
+    <ul>
+      <li><a
+          href="../Pensum.xhtml">Læreboka</a>, kap. 1 </li>
+      <li><h3>Prosjekter:</h3> Figures, House og Lab-classes-<br /> Du finner
+        prosjektene på CDen i læreboka, eller de kan lastes ned fra k<a
+          href="http://www.bluej.org/objects-first/">http://www.bluej.org/objects-first/</a></li>
+
+      <li>
+        <h3>Miniforelsninger</h3>
+        <ul>
+          <li>Ingen</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Oppgave</h2>
+    <p>Vi har noen forslag, som er inspirert av unix småprogrammer for
+      administrasjon av filsystemet. Du kan velge et av disse, eller fortsette
+      videre med et prosjekt du har. Hvis du velger det siste bør du ta vare på
+      forrige versjon av prosjektet, så vi kan se hva du har tilføyd i denne
+      modulen. Se på forslagene under uansett. De gir en pekepinn på hvor mye
+      arbeid vi forventer. Du finner noen tips under forslagene</p>
+    <dl>
+      <dt>Diskforbruk (inspirert av <a
+          href="http://www.manpagez.com/man/1/du/">du)</a></dt>
+      <dd>Skriv et lite program som gitt navnet på en mappe regner ut hvor mye
+        diskplass som blir brukt av filene i mappen med undermapper. Programmet
+        skriver ut diskforbruk for hver undermappe først, og summen for det hele
+        til slutt. Eksempel:<br />
+        <code>cmd&gt; du mittprosjekt<br /> Disk usage for mittprosjekt<br />
+          mittprosjekt/src/java 35kb<br /> mittprosjekt/src 345kb<br />
+          mittprosjekt/doc 29kb<br /> mittprosjekt 421kb<br />
+        </code></dd>
+      <dd>Du trenger ikke implementere alle switchene til unix-kommandoen du,
+        men du bør ta med "-a", som betyr at programmet skal skrive ut
+        størrelsen på hver eneste fil i tillegg til summen for hver mappe.</dd>
+      <dd>Det finnes flere variasjoner over dette temaet. F.eks. skrive ut alle
+        filene i en mappe (og undermapper selvfølgelig) sortert på størrelse.
+        Det kan brukes til å finne "verstingene" på diskplass.</dd>
+
+      <dt>Finn filer (inspirert av <a
+          href="http://www.manpagez.com/man/1/find/">find</a>.</dt>
+      <dd>Gitt en mappe og søkekriterier skal programmet skrive ut alle filer i
+        mappa (eller undermapper) som oppfyller søkekriteriet. Søkekriteret kan
+        f.eks. være filnavn, med eller uten jokertegn (wildcards), ord eller
+        uttrykk som forekommer inni fila, filstørrelse (større eller mindre enn
+        angitt grense), endringsdata (før/på/etter), eller andre kriterier du
+        mener er nyttige.</dd>
+
+      <dt>Kopiere filer/mapper/trær</dt>
+      <dd>Skriv et program som kopierer filer eller mapper til en annen mappe.
+        Hvis det er en mappe som skal kopieres må programmet også kopiere
+        innholdet i mappen og eventuelle undermapper. Eksempel:<br />
+        <code>cmd&gt; copy mittprosjekt prosjekter<br /> Copied 239 files!<br />
+          cmd&gt; dir prosjekter<br /> gammeltprosjekt &lt;DIR&gt;<br />
+          minmappe &lt;DIR&gt;<br /> mittprosjekt &lt;DIR&gt;<br />
+        </code></dd>
+      <dd>Programmer/kommandoer lignende denne blir ofte brukt til å publisere
+        web-sider, i den sammenheng kan det være nyttig å spesifisere om
+        eksisterende filer i målmappen skal overskrives eller ikke, og hva som
+        skal skje med filer som finnes i målmappen, men ikke i orginalmappen
+        (den som det kopieres fra</dd>
+      <dt> Lotto generator </dt>
+      <dd> Lotto er et tallspill der det trekkes sju tall av totalt 34 tall. Lag
+        et program som først genererer VINNER lotto rekka. Denne rekka skal være
+        sortert. Så skal du generere lotto rekker for spill, disse skal også
+        være sortert. Generer rekker helt til du har generert en rekke med 7
+        rette, tell opp hvor mange rekker som måtte genereres for å få 7 rette.
+        Så skal det være et valg for å kjøre dette et villkårlig antall ganger,
+        og så beregne gjennomsnittlig antall rekker som må genereres i spillene
+        for å få 7 rette. </dd>
+
+    </dl>
+
+    <h3>Tips og hint</h3>
+    <h4>Filbehandling i java</h4>
+    <p>Det er to alternative representasjoner av filsystemet i Java. Den ene er <a
+        href="http://docs.oracle.com/javase/8/docs/api/java/io/File.html">java.io.File</a>,
+      som egentlig representerer et filnavn. Den andre er pakken <a
+        href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/package-frame.html">java.nio.file</a>
+      som har mer avanserte funksjoner for å manipulere filer. Klassen
+      java.nio.Path tilsvarer java.io.File</p>
+
+    <h4>Kjøre java-programmer uten BlueJ</h4>
+    <p>Dette er forklart i appendix E i læreboka. Les E.1 nøye, og merk deg
+      signaturen til main() og hvordan du får tak i parametere på
+      kommandolinjen.</p>
+    <h4>Lage exe-filer av java-programmer</h4>
+    <p>Det ser kanskje litt bedre ut om vi kunne skrive </p>
+    <code>cmd&gt; mittprogram</code>
+    <p> i stedet for</p>
+    <code>cmd&gt; java -jar mittprogram.jar MinMainKlasse</code>
+    <p>Det finnes flere verktøyer som kan konvertere jar-filer til exe-filer.
+      F.eks. <a
+        href="launch4j">launch4j</a>. Launch4j er godt dokumentert, og rimelig
+      enkelt å bruke.</p>
+
+
+
+    <p>Godkjennes av foreleser eller hjelpelærer</p>
+
+  </body>
+</html>
