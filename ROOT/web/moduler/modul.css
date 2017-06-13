@@ -49,3 +49,6 @@ table.plain th{
     vertical-align:top;
     padding:3px;
 }
+ol {
+    margin-top: 0.2em;
+}
